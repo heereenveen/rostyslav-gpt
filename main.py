@@ -10,7 +10,7 @@ import json
 with open('config.json') as config_file:
     config = json.load(config_file)
 
-API_Token = config['API_Token']
+API_TOKEN = config['BOT_API_TOKEN']
 
 
 dp = Dispatcher()
@@ -21,7 +21,8 @@ async def starting(message: types.Message):
 
 async def main():
     logging.basicConfig(level=logging.INFO)
-    bot = Bot(token=API_Token)
+    bot = Bot(token=API_TOKEN)
+    await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
