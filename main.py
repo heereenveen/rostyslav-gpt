@@ -3,6 +3,7 @@ import logging
 import json
 from aiogram import Bot, Dispatcher, Router
 from handlers import command_messages, user_messages
+from middlewares.middleware import ThrottlingMiddleware
 
 with open('config.json') as config_file:
     config = json.load(config_file)
@@ -18,6 +19,7 @@ async def main():
         command_messages.router,
         user_messages.router
     )
+    dp.message.middleware(ThrottlingMiddleware())
     await dp.start_polling(bot)
 
 if __name__ == "__main__":

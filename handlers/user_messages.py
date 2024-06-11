@@ -1,8 +1,11 @@
 import logging, os, time
 from aiogram import Router, types
 from persistence import bot_messages
+from middlewares.middleware import ThrottlingMiddleware
 
 router = Router()
+
+router.message.middleware(ThrottlingMiddleware())
 
 @router.message()
 async def answer_message(message: types.Message):
